@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sty 03, 2024 at 02:51 PM
+-- Generation Time: Sty 03, 2024 at 03:14 PM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -154,12 +154,6 @@ ALTER TABLE `weekdays`
 --
 ALTER TABLE `classes`
   MODIFY `id_classes` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `hours`
---
-ALTER TABLE `hours`
-  MODIFY `id_hours` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `main`
