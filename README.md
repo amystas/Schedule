@@ -6,4 +6,5 @@ School project - deadline 30th Jan 24
 🎃 ints in other tabled -> id\_[TABLENAME] 🎃  
 🎃 the id of main is only called id cuz it doesnt have any relations 🎃  
 🎃 in hours table i made hour_start and hour_end for well obviously when lesson starts and ends 🎃  
-🎃 don't mind the lengths of varchars i was estimateing the lenght they could possibly get 🎃  
+🎃 don't mind the lengths of varchars i was estimateing the lenght they could possibly get 🎃    
+🎃 i deleted the auto increment for hours table. When downloading data to database id will have to be added manually there 🎃
