@@ -11,8 +11,7 @@ $noDates = deleteDates($noTagsHTML);
 //$weekdays1 = extractBetweenWords($input, "Nr Godziny", "Nr");
 //DZIAŁA
 
-//nie działa
+//juz dziala, nodates zostal przekonwertowany na stringusia
 $weekdays1 = extractBetweenWords($noDates, "Nr Godziny", "Nr");
-
 echo $weekdays1;
 ?>
