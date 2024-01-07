@@ -3,7 +3,8 @@
 $pagelink = "http://www.sci.edu.pl/cwicz/plan.html";
 $pageHTML = file_get_contents($pagelink);
 $dom = new DOMDocument;
-
+libxml_use_internal_errors(true);
+// ^ usuwa bledy dot. DOMDocument c:
 $dom->loadHTML($pageHTML);
 
 $head = $dom->getElementsByTagName('head')->item(0);
