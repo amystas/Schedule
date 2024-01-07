@@ -22,6 +22,12 @@ function deleteDates($string)
     $result = preg_replace('/\s+/', ' ', $result);
     return trim($result);
 }
+function deleteTagsWithClass($html, $classname) 
+{
+    $pattern = '/<[^>]*\bclass\s*=\s*["\'][^"\']*?\b' . preg_quote($classname, '/') . '\b[^"\']*?["\'][^>]*>(.*?)<\/[^>]+>/i';
+    $htmlStringWithoutClass = preg_replace($pattern, '', $html);
+    return $htmlStringWithoutClass;
+}
 // function extractWords($inputString, $arg1, $arg2, $groupnr)
 // {
 //     $lines = explode("\n", $inputString);
