@@ -6,15 +6,24 @@ $dom = new DOMDocument;
 
 $dom->loadHTML($pageHTML);
 
+$head = $dom->getElementsByTagName('head')->item(0);
+
+$head->parentNode->removeChild($head);
+
 $rows = $dom->getElementsByTagName('tr');
+
+$array[] = $var;
 
 foreach ($rows as $row) {
     $cells = $row->getElementsByTagName('td');
-
+    $rowData = array();
+        
     foreach ($cells as $cell) {
-        echo $cell->nodeValue . ' ';
+        $rowData[] = $cell->nodeValue;
     }
-    
+
+    print_r($rowData);
+
     echo '<br>';
 }
 ?>
