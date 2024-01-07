@@ -12,18 +12,18 @@ $head->parentNode->removeChild($head);
 
 $rows = $dom->getElementsByTagName('tr');
 
-$array[] = $var;
+$rowsData = array(array());
 
 foreach ($rows as $row) {
     $cells = $row->getElementsByTagName('td');
-    $rowData = array();
+    $oneRowData = array();
         
     foreach ($cells as $cell) {
-        $rowData[] = $cell->nodeValue;
+        $oneRowData[] = $cell->nodeValue;
     }
 
-    print_r($rowData);
-
-    echo '<br>';
+    array_push($rowsData, $oneRowData);
 }
+
+print_r($rowsData);
 ?>
