@@ -26,6 +26,7 @@ function deleteTagsWithClass($html, $classname)
 {
     $pattern = '/<[^>]*\bclass\s*=\s*["\'][^"\']*?\b' . preg_quote($classname, '/') . '\b[^"\']*?["\'][^>]*>(.*?)<\/[^>]+>/i';
     $htmlStringWithoutClass = preg_replace($pattern, '', $html);
+    $htmlStringWithoutClass = preg_replace('/\s+/', ' ', $htmlStringWithoutClass);
     return $htmlStringWithoutClass;
 }
 // function extractWords($inputString, $arg1, $arg2, $groupnr)
