@@ -6,6 +6,7 @@ $dom = new DOMDocument;
 libxml_use_internal_errors(true);
 // ^ usuwa bledy dot. DOMDocument c:
 $pageHTML = deleteDates($pageHTML);
+$pageHTML = deleteTagsWithClass($pageHTML, 'line0');
 
 $dom->loadHTML($pageHTML);
 
@@ -15,18 +16,15 @@ $head->parentNode->removeChild($head);
 
 $rows = $dom->getElementsByTagName('tr');
 
-$rowsData = array(array());
+//$rowsData = array(array());
 
-foreach ($rows as $row) {
-    $cells = $row->getElementsByTagName('td');
-    $oneRowData = array();
-        
-    foreach ($cells as $cell) {
-        $oneRowData[] = $cell->nodeValue;
-    }
-
-    array_push($rowsData, $oneRowData);
+$xpath = new DOMXPath($dom);
+$cells = $xpath->query('//td | //th');
+$data = array();
+    
+foreach ($cells as $cell) {
+    $data[] = $cell->nodeValue;
 }
 
-print_r($rowsData);
+print_r($data);
 ?>
