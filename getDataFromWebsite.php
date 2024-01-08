@@ -5,6 +5,8 @@ $pageHTML = file_get_contents($pagelink);
 $dom = new DOMDocument;
 libxml_use_internal_errors(true);
 // ^ usuwa bledy dot. DOMDocument c:
+$pageHTML = deleteDates($pageHTML);
+
 $dom->loadHTML($pageHTML);
 
 $head = $dom->getElementsByTagName('head')->item(0);
