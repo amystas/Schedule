@@ -30,10 +30,10 @@ foreach ($cells as $cell) {
     $data[] = $cell->nodeValue;
 }
 
-checkdatabase();
+var_dump($data);
 
 // dni tygodnia :D
-$indexesToExtractforweekdays = array(2, 3, 4, 5, 7, 8, 9);
+$indexesToExtractforweekdays = array(2, 3, 4, 6, 7, 8, 9); //6 a nie 5
 
 $weekdays = array();
 foreach ($indexesToExtractforweekdays as $index) {
@@ -41,30 +41,36 @@ foreach ($indexesToExtractforweekdays as $index) {
         $weekdays[] = $data[$index];
     }
 }
-//print_r($weekdays);
+print_r($weekdays);
 
-// godziny lekcyjne >:P
-$indexesToExtractforhours = array(12, 23, 34, 45, 56, 67, 78, 89, 100, 111, 122, 133, 144);
+
+// // godziny lekcyjne >:P
+// $indexesToExtractforhours = array(12, 23, 34, 45, 56, 67, 78, 89, 100, 111, 122, 133, 144);
+// $studyhours = array();
+// foreach ($indexesToExtractforhours as $index) {
+//     if (isset($data[$index])) {
+//         $studyhours[] = $data[$index];
+//     }
+// }
+
 $studyhours = array();
-foreach ($indexesToExtractforhours as $index) {
-    if (isset($data[$index])) {
-        $studyhours[] = $data[$index];
+for($i = 12; $i<145; $i+=11)
+{
+    if (isset($data[$i])) {
+        array_push($studyhours, $data[$i]);
     }
 }
-//print_r($studyhours);
+print_r($studyhours);
 
 // podzielenie liczb na hour start i end zeby ladnie do bazy to wchodzilo
 $hour_start = [];
 $hour_end = [];
 foreach ($studyhours as $rekord) {
     $hour_start[] = substr($rekord, 0, 5);
-    $hour_end[] = substr($rekord, 9, 13);
+    $hour_end[] = substr($rekord, 10, 13); //10 a nie 9
 }
 
-//print_r($hour_start);
-//print_r($hour_end);
-
-// przedmioty, klasy, sale ^.^
+///przedmioty, klasy, sale ^.^
 $indexesToExtractforsubjects = array(58, 68, 69, 73, 79, 80, 84, 90, 91, 95, 101, 102, 106, 112, 113, 123, 124,);
 
 $threeinonearraywithsubj = array();
@@ -73,7 +79,7 @@ foreach ($indexesToExtractforsubjects as $index) {
         $threeinonearraywithsubj[] = $data[$index];
     }
 }
-//print_r($threeinonearraywithsubj);
+print_r($threeinonearraywithsubj);
 
 // dzielenie tego na sale, klasy, przedmioty
 
@@ -99,23 +105,25 @@ foreach ($threeinonearraywithsubj as $rekord) {
 $uniqueSubj = array_unique($subj);
 $uniqueClass = array_unique($classes);
 $uniqueRoom = array_unique($room);
-//print_r($uniqueSubj);
+print_r($uniqueSubj);
 
-//print_r($uniqueClass);
+print_r($uniqueClass);
 
-//print_r($uniqueRoom);
+print_r($uniqueRoom);
 //print_r($data);
 
-
-// WYSYLANIE DO SQL 
-try {
-    $link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
-} catch (Exception) {
-    echo ' Error connecting database :c';
+if(!mysqli_connect("localhost", "root", "", "bazy_danych_proj")) {
+	echo "no i spierdolone to jest";
+} else {
+	echo "jest git";
 }
 
+
+// WYSYLANIE DO SQL
+$link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
+
 if ($link) {
-    // dni tygodnia
+    var_dump($uniqueSubj);
     foreach ($weekdays as $weekday) {
         $sql = "INSERT INTO `weekdays` (`id_weekdays`, `weekday`) VALUES (NULL, '$weekday')";
         mysqli_query($link, $sql);
@@ -132,6 +140,7 @@ if ($link) {
 
     // klasy, np. 3C
     foreach ($uniqueClass as $class) {
+        echo $class;
         $sql = "INSERT INTO `classes` (`id_classes`, `class_name`) VALUES (NULL, '$class')";
         mysqli_query($link, $sql);
     }
@@ -153,7 +162,9 @@ if ($link) {
 else{
     echo 'Error connecting database :c';
 }
-sendmonday();
-sendchewsday();
-sendfriday();
+
+// echo $data;
+// sendmonday();
+// sendchewsday();
+// sendfriday();
 ?>
