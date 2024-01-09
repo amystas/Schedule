@@ -29,6 +29,95 @@ function deleteTagsWithClass($html, $classname)
     $htmlStringWithoutClass = preg_replace('/\s+/', ' ', $htmlStringWithoutClass);
     return $htmlStringWithoutClass;
 }
+function sendmonday(){
+    try {
+        $link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
+    } catch (Exception) {
+        echo 'no julka tak wlasnie potrafisz si epolaczyc z baza danych super normalnie wowzabowza :||||';
+    }
+    if($link){
+        $h = 5;
+        for ($i = 1; $i < 7; $i++) {
+            
+            $c = 2;
+            $s = 1;
+            if($i == 1 || $i == 2){
+                $c = 2;
+            }
+            if($i == 3 || $i == 5){
+                $c = 5;
+            }
+            if($i == 4){
+                $c = 3;
+            }
+            if($i == 6){
+                $s = 2;
+                $c = 7;
+            }
+            $sql = "INSERT INTO `main` (`id`, `weekdays_id`, `hours_id`, `subjects_id`, `classes_id`, `rooms_id`) VALUES (NULL, '1', '$h', '$s', '$c', '1')";
+            $h++;
+            mysqli_query($link, $sql);
+        }
+    }
+}
+function sendchewsday(){
+    try {
+        $link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
+    } catch (Exception) {
+        echo 'no julka tak wlasnie potrafisz si epolaczyc z baza danych super normalnie wowzabowza :||||';
+    }
+    if($link){
+        $h = 4;
+        for ($i = 1; $i < 8; $i++) {
+            if($i == 1 || $i == 2 || $i == 6 || $i == 7){
+                $s = 1;
+            }
+            else{
+                $s = 2;
+            }
+            if($i == 1){
+                $c = 1;
+            }
+            if($i == 2){
+                $c = 3;
+            }
+            if($i == 3 || $i == 4){
+                $c = 4;
+            }
+            if($i == 5){
+                $c = 7;
+            }
+            if($i == 6 || $i == 7){
+                $c = 8;
+            }
+            $sql = "INSERT INTO `main` (`id`, `weekdays_id`, `hours_id`, `subjects_id`, `classes_id`, `rooms_id`) VALUES (NULL, '2', '$h', '$s', '$c', '1')";
+            $h++;
+            mysqli_query($link, $sql);
+        }
+    }
+}
+function sendfriday(){
+    try {
+        $link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
+    } catch (Exception) {
+        echo 'no julka tak wlasnie potrafisz si epolaczyc z baza danych super normalnie wowzabowza :||||';
+    }
+    
+    if($link){
+        $h = 5;
+        for ($i = 1; $i < 5; $i++) {
+            if($i == 1 || $i== 2){
+                $c = 1;
+            }
+            else{
+                $c = 6;
+            }
+            $sql = "INSERT INTO `main` (`id`, `weekdays_id`, `hours_id`, `subjects_id`, `classes_id`, `rooms_id`) VALUES (NULL, '5', '$h', '1', '$c', '2')";
+            $h++;
+            mysqli_query($link, $sql);
+        }
+    }
+}
 // function extractWords($inputString, $arg1, $arg2, $groupnr)
 // {
 //     $lines = explode("\n", $inputString);
