@@ -45,7 +45,6 @@ foreach ($indexesToExtractforweekdays as $index) {
 
 // godziny lekcyjne >:P
 $indexesToExtractforhours = array(12, 23, 34, 45, 56, 67, 78, 89, 100, 111, 122, 133, 144);
-
 $studyhours = array();
 foreach ($indexesToExtractforhours as $index) {
     if (isset($data[$index])) {
@@ -109,7 +108,6 @@ $uniqueRoom = array_unique($room);
 
 
 // WYSYLANIE DO SQL 
-
 try {
     $link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
 } catch (Exception) {
@@ -152,5 +150,7 @@ if ($link) {
         mysqli_query($link, $sql);
     }
 }
-
+sendmonday();
+sendchewsday();
+sendfriday();
 ?>
