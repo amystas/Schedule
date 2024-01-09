@@ -30,7 +30,7 @@ foreach ($cells as $cell) {
     $data[] = $cell->nodeValue;
 }
 
-
+checkdatabase();
 
 // dni tygodnia :D
 $indexesToExtractforweekdays = array(2, 3, 4, 5, 7, 8, 9);
@@ -111,7 +111,7 @@ $uniqueRoom = array_unique($room);
 try {
     $link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
 } catch (Exception) {
-    echo 'no julka tak wlasnie potrafisz si epolaczyc z baza danych super normalnie wowzabowza :||||';
+    echo ' Error connecting database :c';
 }
 
 if ($link) {
@@ -149,6 +149,9 @@ if ($link) {
         $sql = "INSERT INTO `subjects` (`id_subjects`, `subject_name`) VALUES (NULL, '$subject')";
         mysqli_query($link, $sql);
     }
+}
+else{
+    echo 'Error connecting database :c';
 }
 sendmonday();
 sendchewsday();
