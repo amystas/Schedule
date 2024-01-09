@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sty 03, 2024 at 03:14 PM
+-- Generation Time: Sty 09, 2024 at 02:48 PM
 -- Wersja serwera: 10.4.28-MariaDB
 -- Wersja PHP: 8.2.4
 
@@ -29,10 +29,9 @@ USE `bazy_danych_proj`;
 -- Struktura tabeli dla tabeli `classes`
 --
 
-DROP TABLE IF EXISTS `classes`;
 CREATE TABLE `classes` (
   `id_classes` int(11) NOT NULL,
-  `class_name` varchar(3) NOT NULL
+  `class_name` varchar(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
 -- --------------------------------------------------------
@@ -41,7 +40,6 @@ CREATE TABLE `classes` (
 -- Struktura tabeli dla tabeli `hours`
 --
 
-DROP TABLE IF EXISTS `hours`;
 CREATE TABLE `hours` (
   `id_hours` int(11) NOT NULL,
   `hour_start` time NOT NULL,
@@ -54,7 +52,6 @@ CREATE TABLE `hours` (
 -- Struktura tabeli dla tabeli `main`
 --
 
-DROP TABLE IF EXISTS `main`;
 CREATE TABLE `main` (
   `id` int(11) NOT NULL,
   `weekdays_id` int(11) NOT NULL,
@@ -70,7 +67,6 @@ CREATE TABLE `main` (
 -- Struktura tabeli dla tabeli `rooms`
 --
 
-DROP TABLE IF EXISTS `rooms`;
 CREATE TABLE `rooms` (
   `id_rooms` int(11) NOT NULL,
   `room_num` varchar(15) NOT NULL
@@ -82,7 +78,6 @@ CREATE TABLE `rooms` (
 -- Struktura tabeli dla tabeli `subjects`
 --
 
-DROP TABLE IF EXISTS `subjects`;
 CREATE TABLE `subjects` (
   `id_subjects` int(11) NOT NULL,
   `subject_name` varchar(115) NOT NULL
@@ -94,7 +89,6 @@ CREATE TABLE `subjects` (
 -- Struktura tabeli dla tabeli `weekdays`
 --
 
-DROP TABLE IF EXISTS `weekdays`;
 CREATE TABLE `weekdays` (
   `id_weekdays` int(11) NOT NULL,
   `weekday` varchar(20) NOT NULL
