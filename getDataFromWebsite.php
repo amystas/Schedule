@@ -44,7 +44,7 @@ foreach ($indexesToExtractforweekdays as $index) {
 //print_r($weekdays);
 
 // godziny lekcyjne >:P
-$indexesToExtractforhours = array(12, 23, 34, 56, 67, 78, 89, 100, 111, 122, 133, 144);
+$indexesToExtractforhours = array(12, 23, 34, 45, 56, 67, 78, 89, 100, 111, 122, 133, 144);
 
 $studyhours = array();
 foreach ($indexesToExtractforhours as $index) {
