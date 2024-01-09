@@ -59,7 +59,7 @@ $hour_start = [];
 $hour_end = [];
 foreach ($studyhours as $rekord) {
     $hour_start[] = substr($rekord, 0, 5);
-    $hour_end[] = substr($rekord, 8, 13);
+    $hour_end[] = substr($rekord, 9, 13);
 }
 
 //print_r($hour_start);
@@ -107,6 +107,7 @@ $uniqueRoom = array_unique($room);
 //print_r($uniqueRoom);
 //print_r($data);
 
+
 // WYSYLANIE DO SQL 
 
 try {
@@ -127,14 +128,6 @@ if ($link) {
     $i = 0;
     foreach ($hour_start as $hourst) {
         $sql = "INSERT INTO `hours` (`id_hours`, `hour_start`, `hour_end`) VALUES ('$i', '$hourst', '$hour_end[$i]')";
-        $i++;
-        mysqli_query($link, $sql);
-    }
-    // naprawa hour end nwm czemu dziala ale mozna to zawsze po prostu zedytowac ;P
-    $i = 0;
-    foreach ($hour_end as $houren) {
-        $sql = "UPDATE `hours` SET hour_end = '$houren' WHERE id_hours = '$i'";
-        //nie dziala wtfwtf
         $i++;
         mysqli_query($link, $sql);
     }
