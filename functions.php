@@ -1,23 +1,4 @@
 <?php
-function checkdatabase()
-{
-    try{
-    $link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
-    $countTables = mysqli_query($link, "SELECT COUNT(*) AS total_tables FROM information_schema.tables WHERE table_schema = 'bazy_danych_proj'");
-    if ($countTables) {
-        $row = $countTables->fetch_assoc();
-        $totalTables = $row['total_tables'];
-    }
-    if($totalTables != 6){
-        $database = file_get_contents("bazy_danych_proj.sql");
-        mysqli_multi_query($link, $database);
-    }
-}
-    catch(Exception){
-        $database = file_get_contents("bazy_danych_proj.sql");
-        mysqli_multi_query(mysqli_connect("localhost", "root", ""), $database);
-    }
-}
 
 
 function deleteBetweenWords($string, $startWord, $endWord)
