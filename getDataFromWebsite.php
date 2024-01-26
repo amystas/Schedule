@@ -116,8 +116,8 @@ $uniqueRoom = array_unique($room);
 // } else {
 // 	echo "jest git";
 // }
-try {
-    $link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
+try{
+    $link = mysqli_connect("localhost", "root", "");
     $countTables = mysqli_query($link, "SELECT COUNT(*) AS total_tables FROM information_schema.tables WHERE table_schema = 'bazy_danych_proj'");
     if ($countTables) {
         $row = $countTables->fetch_assoc();
@@ -128,8 +128,10 @@ try {
         mysqli_multi_query($link, $database);
         
     }
-    } 
-    catch (Exception) {
+    echo"Ami jest taka hotowa";
+}   
+    
+ catch(Exception){      
     $database = file_get_contents("bazy_danych_proj.sql");
     mysqli_multi_query(mysqli_connect("localhost", "root", ""), $database);
     $link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
@@ -144,49 +146,48 @@ try {
     }
     
     // Consume all results to clear the buffer
-    while (mysqli_next_result($link)) {
-        if ($res = mysqli_store_result($link)) {
-            mysqli_free_result($res);
-        }
-    }
+    do  if($result=mysqli_store_result($link)){ mysqli_free_result($result); } while(mysqli_more_results($link) && mysqli_next_result($link));
+}
+$link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
     foreach ($weekdays as $weekday) {
-        $sql = "INSERT INTO `weekdays` (`id_weekdays`, `weekday`) VALUES (NULL, '$weekday')";
-        mysqli_query($link, $sql);
+        $sql = "INSERT INTO `weekdays` (`id_weekdays`, `weekday`) VALUES (NULL, '$weekday');";
+        mysqli_query($link, $sql, MYSQLI_USE_RESULT);
     }
 
 
     // godziny lekcyjne
     $i = 0;
     foreach ($hour_start as $hourst) {
-        $sql = "INSERT INTO `hours` (`id_hours`, `hour_start`, `hour_end`) VALUES ('$i', '$hourst', '$hour_end[$i]')";
+        $sql = "INSERT INTO `hours` (`id_hours`, `hour_start`, `hour_end`) VALUES ('$i', '$hourst', '$hour_end[$i]');";
         $i++;
         mysqli_query($link, $sql);
     }
 
     // klasy, np. 3C
     foreach ($uniqueClass as $class) {
-        $sql = "INSERT INTO `classes` (`id_classes`, `class_name`) VALUES (NULL, '$class')";
+        $sql = "INSERT INTO `classes` (`id_classes`, `class_name`) VALUES (NULL, '$class');";
         mysqli_query($link, $sql);
     }
 
 
     // sale
     foreach ($uniqueRoom as $room_v) {
-        $sql = "INSERT INTO `rooms` (`id_rooms`, `room_num`) VALUES (NULL, '$room_v')";
+        $sql = "INSERT INTO `rooms` (`id_rooms`, `room_num`) VALUES (NULL, '$room_v');";
         mysqli_query($link, $sql);
     }
 
 
     // przedmioty
     foreach ($uniqueSubj as $subject) {
-        $sql = "INSERT INTO `subjects` (`id_subjects`, `subject_name`) VALUES (NULL, '$subject')";
+        $sql = "INSERT INTO `subjects` (`id_subjects`, `subject_name`) VALUES (NULL, '$subject');";
         mysqli_query($link, $sql);
     }
 
     sendmonday();
     sendchewsday();
     sendfriday();
-}
+    echo "kocham moja dziewczyne";
+ 
 
 // WYSYLANIE DO SQL
 // if ($link) {
