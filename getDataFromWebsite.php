@@ -149,9 +149,11 @@ try{
     do  if($result=mysqli_store_result($link)){ mysqli_free_result($result); } while(mysqli_more_results($link) && mysqli_next_result($link));
 }
 $link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
+    mysqli_query($link,"SET FOREIGN_KEY_CHECKS=0;");
+    mysqli_query($link,"TRUNCATE weekdays;");
     foreach ($weekdays as $weekday) {
         $sql = "INSERT INTO `weekdays` (`id_weekdays`, `weekday`) VALUES (NULL, '$weekday');";
-        mysqli_query($link, $sql, MYSQLI_USE_RESULT);
+        mysqli_query($link, $sql);
     }
 
 
