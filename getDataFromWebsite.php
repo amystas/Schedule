@@ -70,7 +70,7 @@ foreach ($studyhours as $rekord) {
 }
 
 ///przedmioty, klasy, sale ^.^
-$indexesToExtractforsubjects = array(58, 68, 69, 73, 79, 80, 84, 90, 91, 95, 101, 102, 106, 112, 113, 123, 124,);
+$indexesToExtractforsubjects = array(58, 68, 69, 73, 79, 80, 84, 90, 91, 95, 101, 102, 106, 112, 113, 123, 124, );
 
 $threeinonearraywithsubj = array();
 foreach ($indexesToExtractforsubjects as $index) {
@@ -116,7 +116,7 @@ $uniqueRoom = array_unique($room);
 // } else {
 // 	echo "jest git";
 // }
-try{
+try {
     $link = mysqli_connect("localhost", "root", "");
     $countTables = mysqli_query($link, "SELECT COUNT(*) AS total_tables FROM information_schema.tables WHERE table_schema = 'bazy_danych_proj'");
     if ($countTables) {
@@ -126,70 +126,69 @@ try{
     if ($totalTables != 6) {
         $database = file_get_contents("bazy_danych_proj.sql");
         mysqli_multi_query($link, $database);
-        
+
     }
-    echo"Ami jest taka hotowa";
-}   
-    
- catch(Exception){      
+    mysqli_query($link, "SET FOREIGN_KEY_CHECKS=0;");
+    mysqli_query($link, "TRUNCATE bazy_danych_proj.weekdays;");
+} catch (Exception) {
     $database = file_get_contents("bazy_danych_proj.sql");
     mysqli_multi_query(mysqli_connect("localhost", "root", ""), $database);
     $link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
     if (!$link) {
         die("Connection failed: " . mysqli_connect_error());
     }
-    
+
     $result = mysqli_multi_query($link, $database);
-    
+
     if (!$result) {
         die("Error executing multi-query: " . mysqli_error($link));
     }
-    
+
     // Consume all results to clear the buffer
-    do  if($result=mysqli_store_result($link)){ mysqli_free_result($result); } while(mysqli_more_results($link) && mysqli_next_result($link));
+    do
+        if ($result = mysqli_store_result($link)) {
+            mysqli_free_result($result);
+        } while (mysqli_more_results($link) && mysqli_next_result($link));
 }
 $link = mysqli_connect("localhost", "root", "", "bazy_danych_proj");
-    mysqli_query($link,"SET FOREIGN_KEY_CHECKS=0;");
-    mysqli_query($link,"TRUNCATE weekdays;");
-    foreach ($weekdays as $weekday) {
-        $sql = "INSERT INTO `weekdays` (`id_weekdays`, `weekday`) VALUES (NULL, '$weekday');";
-        mysqli_query($link, $sql);
-    }
+foreach ($weekdays as $weekday) {
+    $sql = "INSERT INTO `weekdays` (`id_weekdays`, `weekday`) VALUES (NULL, '$weekday');";
+    mysqli_query($link, $sql);
+}
 
 
-    // godziny lekcyjne
-    $i = 0;
-    foreach ($hour_start as $hourst) {
-        $sql = "INSERT INTO `hours` (`id_hours`, `hour_start`, `hour_end`) VALUES ('$i', '$hourst', '$hour_end[$i]');";
-        $i++;
-        mysqli_query($link, $sql);
-    }
+// godziny lekcyjne
+$i = 0;
+foreach ($hour_start as $hourst) {
+    $sql = "INSERT INTO `hours` (`id_hours`, `hour_start`, `hour_end`) VALUES ('$i', '$hourst', '$hour_end[$i]');";
+    $i++;
+    mysqli_query($link, $sql);
+}
 
-    // klasy, np. 3C
-    foreach ($uniqueClass as $class) {
-        $sql = "INSERT INTO `classes` (`id_classes`, `class_name`) VALUES (NULL, '$class');";
-        mysqli_query($link, $sql);
-    }
-
-
-    // sale
-    foreach ($uniqueRoom as $room_v) {
-        $sql = "INSERT INTO `rooms` (`id_rooms`, `room_num`) VALUES (NULL, '$room_v');";
-        mysqli_query($link, $sql);
-    }
+// klasy, np. 3C
+foreach ($uniqueClass as $class) {
+    $sql = "INSERT INTO `classes` (`id_classes`, `class_name`) VALUES (NULL, '$class');";
+    mysqli_query($link, $sql);
+}
 
 
-    // przedmioty
-    foreach ($uniqueSubj as $subject) {
-        $sql = "INSERT INTO `subjects` (`id_subjects`, `subject_name`) VALUES (NULL, '$subject');";
-        mysqli_query($link, $sql);
-    }
+// sale
+foreach ($uniqueRoom as $room_v) {
+    $sql = "INSERT INTO `rooms` (`id_rooms`, `room_num`) VALUES (NULL, '$room_v');";
+    mysqli_query($link, $sql);
+}
 
-    sendmonday();
-    sendchewsday();
-    sendfriday();
-    echo "kocham moja dziewczyne";
- 
+
+// przedmioty
+foreach ($uniqueSubj as $subject) {
+    $sql = "INSERT INTO `subjects` (`id_subjects`, `subject_name`) VALUES (NULL, '$subject');";
+    mysqli_query($link, $sql);
+}
+
+sendmonday();
+sendchewsday();
+sendfriday();
+
 
 // WYSYLANIE DO SQL
 // if ($link) {
